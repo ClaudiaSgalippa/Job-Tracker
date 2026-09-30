@@ -52,13 +52,29 @@ function ApplicationForm() {
                 <button type='submit'>Aggiungi candidatura</button>
             </form>
             <h2>Candidature:</h2>
-            <ul>
-                {application.map((application) =>(
-                    <li key={application.company + application.position}>
-                        {application.company} - {application.position} - {application.status}
-                    </li>
-                ))}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Azienda</th>
+                        <th>Posizione</th>
+                        <th>Stato candidatura</th>
+                        <th>Modifiche</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {application.map((application) => (
+                        <tr key={application.company + application.position}>
+                            <td>{application.company}</td>
+                            <td>{application.position}</td>
+                            <td>{application.status}</td>
+                            <td>
+                                <button>Modifica</button>
+                                <button>Elimina</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </>
     )
 }
