@@ -4,45 +4,62 @@ function ApplicationForm() {
     const [company, setCompany] = useState('')
     const [position, setPosition] = useState('')
     const [status, setStatus] = useState('Da valutare')
+    const [application, setApplication] = useState([])
 
     function handleSubmit(event) {
         event.preventDefault()
 
-        console.log(company, position, status)
+        const newApplication = {
+            company:company,
+            position:position,
+            status:status
+        }
+
+        setApplication([...application, newApplication])
     }
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Nuova candidatura</h2>
-            <label htmlFor='company'>Azienda</label>
-            <input
-                id='company'
-                type='text'
-                value={company}
-                onChange={(event) => setCompany(event.target.value)}
-            />
-            <label htmlFor='position'>Posizione</label>
-            <input
-                id='position'
-                type='text'
-                value={position}
-                onChange={(event) => setPosition(event.target.value)}
-            />
-            <label htmlFor='status'>Stato candidatura</label>
-            <select
-                id='status'
-                value={status}
-                onChange={(event) => setStatus(event.target.value)}
-            >
-                <option value='Da valutare'>Da valutare</option>
-                <option value='Candidatura inviata'>Candidatura inviata</option>
-                <option value='Colloquio'>Colloquio</option> 
-                <option value='Rifiutata'>Rifiutata</option> 
-                <option value='Assunta'>Assunta</option>
-            </select>
-            <button type='submit'>Aggiungi candidatura</button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                <h2>Nuova candidatura</h2>
+                <label htmlFor='company'>Azienda</label>
+                <input
+                    id='company'
+                    type='text'
+                    value={company}
+                    onChange={(event) => setCompany(event.target.value)}
+                />
+                <label htmlFor='position'>Posizione</label>
+                <input
+                    id='position'
+                    type='text'
+                    value={position}
+                    onChange={(event) => setPosition(event.target.value)}
+                />
+                <label htmlFor='status'>Stato candidatura</label>
+                <select
+                    id='status'
+                    value={status}
+                    onChange={(event) => setStatus(event.target.value)}
+                >
+                    <option value='Da valutare'>Da valutare</option>
+                    <option value='Candidatura inviata'>Candidatura inviata</option>
+                    <option value='Colloquio'>Colloquio</option> 
+                    <option value='Rifiutata'>Rifiutata</option> 
+                    <option value='Assunta'>Assunta</option>
+                </select>
+                <button type='submit'>Aggiungi candidatura</button>
+            </form>
+            <h2>Candidature:</h2>
+            <ul>
+                {application.map((application) =>(
+                    <li key={application.company + application.position}>
+                        {application.company} - {application.position} - {application.status}
+                    </li>
+                ))}
+            </ul>
+        </>
     )
 }
 
