@@ -27,6 +27,21 @@ function ApplicationForm() {
         setApplications(updatedApplications)
     }
 
+    function handleStatusChange(id, newStatus) {
+        const updatedApplications = applications.map((application) => {
+            if (application.id === id) {
+                return {
+                    ...application,
+                    status: newStatus
+                }
+            }
+
+            return application
+        })
+
+        setApplications(updatedApplications)
+    }
+
 
     return (
         <>
@@ -75,7 +90,20 @@ function ApplicationForm() {
                         <tr key={application.id}>
                             <td>{application.company}</td>
                             <td>{application.position}</td>
-                            <td>{application.status}</td>
+                            <td>
+                                <select 
+                                    value={application.status} 
+                                    onChange={(event) => 
+                                        handleStatusChange(application.id, event.target.value)
+                                    }
+                                >
+                                    <option value={"Da valutare"}>Da valutare</option>
+                                    <option value={"Candidatura inviata"}>Candidatura inviata</option>
+                                    <option value={"Colloquio"}>Colloquio</option>
+                                    <option value={"Rifiutata"}>Rifiutata</option>
+                                    <option value={"Assunta"}>Assunta</option>
+                                </select>
+                            </td>
                             <td>
                                 <button>Modifica</button>
                                 <button onClick={() => handleDelete(application.id)}>
