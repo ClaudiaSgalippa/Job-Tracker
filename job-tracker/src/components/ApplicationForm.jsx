@@ -4,18 +4,19 @@ function ApplicationForm() {
     const [company, setCompany] = useState('')
     const [position, setPosition] = useState('')
     const [status, setStatus] = useState('Da valutare')
-    const [application, setApplication] = useState([])
+    const [applications, setApplications] = useState([])
 
     function handleSubmit(event) {
         event.preventDefault()
 
         const newApplication = {
+            id: Date.now(),
             company:company,
             position:position,
             status:status
         }
 
-        setApplication([...application, newApplication])
+        setApplications([...applications, newApplication])
     }
 
 
@@ -62,8 +63,8 @@ function ApplicationForm() {
                     </tr>
                 </thead>
                 <tbody>
-                    {application.map((application) => (
-                        <tr key={application.company + application.position}>
+                    {applications.map((application) => (
+                        <tr key={application.id}>
                             <td>{application.company}</td>
                             <td>{application.position}</td>
                             <td>{application.status}</td>
