@@ -19,6 +19,14 @@ function ApplicationForm() {
         setApplications([...applications, newApplication])
     }
 
+    function handleDelete(id) {
+        const updatedApplications = applications.filter(
+            (application) => application.id !== id
+        )
+
+        setApplications(updatedApplications)
+    }
+
 
     return (
         <>
@@ -70,7 +78,9 @@ function ApplicationForm() {
                             <td>{application.status}</td>
                             <td>
                                 <button>Modifica</button>
-                                <button>Elimina</button>
+                                <button onClick={() => handleDelete(application.id)}>
+                                    Elimina
+                                </button>
                             </td>
                         </tr>
                     ))}
