@@ -21,6 +21,10 @@ function ApplicationForm() {
         }
 
         setApplications([...applications, newApplication])
+
+        setCompany('')
+        setPosition('')
+        setStatus('Da valutare')
     }
 
     function handleDelete(id) {
