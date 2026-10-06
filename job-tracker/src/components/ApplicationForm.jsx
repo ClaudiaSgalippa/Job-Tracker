@@ -5,6 +5,8 @@ function ApplicationForm() {
     const [position, setPosition] = useState('')
     const [status, setStatus] = useState('Da valutare')
     const [applications, setApplications] = useState([])
+    const [editingId, setEditingId] = useState(null)
+    const [editingStatus, setEditingStatus] = useState('')
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -35,12 +37,17 @@ function ApplicationForm() {
         setApplications(updatedApplications)
     }
 
-    function handleStatusChange(id, newStatus) {
+    function handleEdit(application) {
+        setEditingId(application.id)
+        setEditingStatus(application.status)
+    }
+
+    function handleStatusChange(id) {
         const updatedApplications = applications.map((application) => {
             if (application.id === id) {
                 return {
                     ...application,
-                    status: newStatus
+                    status: editingStatus
                 }
             }
 
@@ -48,8 +55,9 @@ function ApplicationForm() {
         })
 
         setApplications(updatedApplications)
+        setEditingId(null)
+        setEditingStatus('')
     }
-
 
     return (
         <>
@@ -99,23 +107,38 @@ function ApplicationForm() {
                             <td>{application.company}</td>
                             <td>{application.position}</td>
                             <td>
-                                <select 
-                                    value={application.status} 
-                                    onChange={(event) => 
-                                        handleStatusChange(application.id, event.target.value)
-                                    }
-                                >
-                                    <option value={"Da valutare"}>Da valutare</option>
-                                    <option value={"Candidatura inviata"}>Candidatura inviata</option>
-                                    <option value={"Colloquio"}>Colloquio</option>
-                                    <option value={"Rifiutata"}>Rifiutata</option>
-                                    <option value={"Assunta"}>Assunta</option>
-                                </select>
+                                {editingId === application.id ? (
+                                    <select 
+                                        value={editingStatus} 
+                                        onChange={(event) => setEditingStatus(event.target.value)}
+                                    >
+                                        <option value={"Da valutare"}>Da valutare</option>
+                                        <option value={"Candidatura inviata"}>Candidatura inviata</option>
+                                        <option value={"Colloquio"}>Colloquio</option>
+                                        <option value={"Rifiutata"}>Rifiutata</option>
+                                        <option value={"Assunta"}>Assunta</option>
+                                    </select>
+                                ) : (
+                                    application.status
+                                )}
                             </td>
                             <td>
-                                <button>Modifica</button>
-                                <button onClick={() => handleDelete(application.id)}>
-                                    Elimina
+                                <button
+                                    type='button'
+                                    onClick={() => {
+                                        if (editingId === application.id) {
+                                            handleStatusChange(application.id)
+                                        } else {
+                                            handleEdit(application)
+                                        }
+                                    }}
+                                >
+                                    {editingId === application.id ? 'Conferma' : 'Modifica'}
+                                </button>
+                                <button
+                                    type='button'
+                                    onClick={() => handleDelete(application.id)}>
+                                        Elimina
                                 </button>
                             </td>
                         </tr>
