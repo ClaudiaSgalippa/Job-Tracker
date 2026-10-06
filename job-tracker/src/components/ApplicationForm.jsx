@@ -9,6 +9,10 @@ function ApplicationForm() {
     function handleSubmit(event) {
         event.preventDefault()
 
+        if (company.trim() === '' || position.trim() === '') {
+            return
+        }
+
         const newApplication = {
             id: Date.now(),
             company:company,
