@@ -36,6 +36,7 @@ function ApplicationForm() {
         setCompany('')
         setPosition('')
         setStatus('Da valutare')
+        document.activeElement.blur()
     }
 
     function handleDelete(id) {
