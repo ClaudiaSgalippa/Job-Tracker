@@ -4,6 +4,7 @@ function ApplicationForm() {
     const [company, setCompany] = useState('')
     const [position, setPosition] = useState('')
     const [status, setStatus] = useState('Da valutare')
+    const [search, setSearch] = useState('')
     const [editingId, setEditingId] = useState(null)
     const [editingStatus, setEditingStatus] = useState('')
     const [applications, setApplications] = useState(() => {
@@ -71,6 +72,13 @@ function ApplicationForm() {
         localStorage.setItem('applications', JSON.stringify(applications))
     }, [applications])
 
+    const filteredApplications = applications.filter((application) => {
+        return (
+            application.company.toLowerCase().includes(search.toLowerCase()) ||
+            application.position.toLowerCase().includes(search.toLowerCase())
+        )
+    })
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -104,6 +112,16 @@ function ApplicationForm() {
                 <button type='submit'>Aggiungi candidatura</button>
             </form>
             <h2>Candidature:</h2>
+            <div>
+                <label htmlFor='search'>Cerca</label>
+                <input
+                    id='search'
+                    type='text'
+                    value={search}
+                    onChange={(event) => setSearch(event.target.value)}
+                    placeholder='Cerca azienda o posizione'
+                />
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -114,8 +132,13 @@ function ApplicationForm() {
                     </tr>
                 </thead>
                 <tbody>
-                    {applications.map((application) => (
-                        <tr key={application.id}>
+                    {filteredApplications.length === 0 ? (
+                        <tr>
+                            <td colSpan='4'>Nessuna candidatura trovata</td>
+                        </tr>
+                    ) : (
+                        filteredApplications.map((application) => (
+                            <tr key={application.id}>
                             <td>{application.company}</td>
                             <td>{application.position}</td>
                             <td>
@@ -154,7 +177,8 @@ function ApplicationForm() {
                                 </button>
                             </td>
                         </tr>
-                    ))}
+                        ))
+                    )}
                 </tbody>
             </table>
         </>
