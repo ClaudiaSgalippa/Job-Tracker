@@ -1,12 +1,20 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function ApplicationForm() {
     const [company, setCompany] = useState('')
     const [position, setPosition] = useState('')
     const [status, setStatus] = useState('Da valutare')
-    const [applications, setApplications] = useState([])
     const [editingId, setEditingId] = useState(null)
     const [editingStatus, setEditingStatus] = useState('')
+    const [applications, setApplications] = useState(() => {
+        const savedApplications = localStorage.getItem('applications')
+
+        if (savedApplications) {
+            return JSON.parse(savedApplications)
+        }
+
+        return []
+    })
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -58,6 +66,10 @@ function ApplicationForm() {
         setEditingId(null)
         setEditingStatus('')
     }
+
+    useEffect(() => {
+        localStorage.setItem('applications', JSON.stringify(applications))
+    }, [applications])
 
     return (
         <>
