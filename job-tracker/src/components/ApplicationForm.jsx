@@ -28,7 +28,8 @@ function ApplicationForm() {
             id: Date.now(),
             company:company,
             position:position,
-            status:status
+            status:status,
+            date: new Date().toISOString()
         }
 
         setApplications([...applications, newApplication])
@@ -128,6 +129,7 @@ function ApplicationForm() {
                     <tr>
                         <th>Azienda</th>
                         <th>Posizione</th>
+                        <th>Data</th>
                         <th>Stato candidatura</th>
                         <th>Modifiche</th>
                     </tr>
@@ -135,13 +137,14 @@ function ApplicationForm() {
                 <tbody>
                     {filteredApplications.length === 0 ? (
                         <tr>
-                            <td colSpan='4'>Nessuna candidatura trovata</td>
+                            <td colSpan='5'>Nessuna candidatura trovata</td>
                         </tr>
                     ) : (
                         filteredApplications.map((application) => (
                             <tr key={application.id}>
                             <td>{application.company}</td>
                             <td>{application.position}</td>
+                            <td>{new Date(application.date).toLocaleDateString('it-IT')}</td>
                             <td>
                                 {editingId === application.id ? (
                                     <select 
