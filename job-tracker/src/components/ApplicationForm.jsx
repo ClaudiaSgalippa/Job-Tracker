@@ -7,6 +7,8 @@ function ApplicationForm() {
     const [search, setSearch] = useState('')
     const [editingId, setEditingId] = useState(null)
     const [editingStatus, setEditingStatus] = useState('')
+    const [notes, setNotes] = useState('')
+    const [editingNotes, setEditingNotes] = useState('')
     const [applications, setApplications] = useState(() => {
         const savedApplications = localStorage.getItem('applications')
 
@@ -29,6 +31,7 @@ function ApplicationForm() {
             company:company,
             position:position,
             status:status,
+            notes:notes,
             date: new Date().toISOString()
         }
 
@@ -37,6 +40,7 @@ function ApplicationForm() {
         setCompany('')
         setPosition('')
         setStatus('Da valutare')
+        setNotes('')
         document.activeElement.blur()
     }
 
@@ -51,6 +55,7 @@ function ApplicationForm() {
     function handleEdit(application) {
         setEditingId(application.id)
         setEditingStatus(application.status)
+        setEditingNotes(application.notes)
     }
 
     function handleStatusChange(id) {
@@ -58,7 +63,8 @@ function ApplicationForm() {
             if (application.id === id) {
                 return {
                     ...application,
-                    status: editingStatus
+                    status: editingStatus,
+                    notes: editingNotes
                 }
             }
 
@@ -68,6 +74,7 @@ function ApplicationForm() {
         setApplications(updatedApplications)
         setEditingId(null)
         setEditingStatus('')
+        setEditingNotes('')
     }
 
     useEffect(() => {
@@ -111,6 +118,12 @@ function ApplicationForm() {
                     <option value='Rifiutata'>Rifiutata</option> 
                     <option value='Assunta'>Assunta</option>
                 </select>
+                <label htmlFor='notes'>Note</label>
+                <textarea
+                    id='notes'
+                    value={notes}
+                    onChange={(event) => setNotes(event.target.value)}
+                ></textarea>
                 <button type='submit'>Aggiungi candidatura</button>
             </form>
             <h2>Candidature:</h2>
@@ -131,13 +144,14 @@ function ApplicationForm() {
                         <th>Posizione</th>
                         <th>Data</th>
                         <th>Stato candidatura</th>
+                        <th>Note</th>
                         <th>Modifiche</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredApplications.length === 0 ? (
                         <tr>
-                            <td colSpan='5'>Nessuna candidatura trovata</td>
+                            <td colSpan='6'>Nessuna candidatura trovata</td>
                         </tr>
                     ) : (
                         filteredApplications.map((application) => (
@@ -159,6 +173,16 @@ function ApplicationForm() {
                                     </select>
                                 ) : (
                                     application.status
+                                )}
+                            </td>
+                            <td>
+                                {editingId === application.id ? (
+                                    <textarea
+                                        value={editingNotes}
+                                        onChange={(event) => setEditingNotes(event.target.value)}
+                                    />
+                                ) : (
+                                    application.notes
                                 )}
                             </td>
                             <td>
