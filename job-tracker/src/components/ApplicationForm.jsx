@@ -96,6 +96,17 @@ function ApplicationForm() {
         )
     })
 
+    const totalApplications = applications.length
+    const toEvaluate = applications.filter(
+        (application) => application.status === 'Da valutare'
+    ).length
+    const interviews = applications.filter(
+        (application) => application.status === 'Colloquio'
+    ).length
+    const hired = applications.filter(
+        (application) => application.status === 'Assunta'
+    ).length
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -134,7 +145,28 @@ function ApplicationForm() {
                 ></textarea>
                 <button type='submit'>Aggiungi candidatura</button>
             </form>
-            <h2>Candidature:</h2>
+            <h2>Candidature:</h2>          
+            <div className="application-summary">
+                <div className="summary-card">
+                    <span>Totali</span>
+                    <strong>{totalApplications}</strong>
+                </div>
+                
+                <div className="summary-card">
+                    <span>Da valutare</span>
+                    <strong>{toEvaluate}</strong>
+                </div>
+                
+                <div className="summary-card">
+                    <span>Colloqui</span>
+                    <strong>{interviews}</strong>
+                </div>
+                
+                <div className="summary-card">
+                    <span>Assunta</span>
+                    <strong>{hired}</strong>
+                </div>
+            </div>
             <div>
                 <label htmlFor='search'>Cerca</label>
                 <input
