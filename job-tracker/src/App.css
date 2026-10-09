@@ -1,0 +1,151 @@
+/* Layout principale */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+/* Titolo principale */
+h1 {
+    margin: 0 0 12px;
+    color: #a78bfa;
+    font-size: 40px;
+    text-align: center;
+}
+
+/* Sottotitoli */
+h2 {
+    margin: 0 0 24px;
+    color: #f1f1f5;
+    font-size: 22px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    margin-bottom: 32px;
+    background-color: #1c1b27;
+    border: 1px solid #343044;
+    border-radius: 16px;
+}
+
+/* Titolo del form */
+form h2 {
+    margin: 0 0 12px;
+}
+
+/* Etichette */
+label {
+    display: block;
+    margin-top: 8px;
+    color: #d8d4e8;
+    font-size: 14px;
+}
+
+/* Campi di inserimento */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    background-color: #121218;
+    color: #f1f1f5;
+    border: 1px solid #454057;
+    border-radius: 8px;
+    font: inherit;
+}
+
+/* Menu a tendina */
+select {
+    color-scheme: dark;
+    cursor: pointer;
+}
+
+/* Opzioni del menu */
+select option {
+    background-color: #1c1b27;
+    color: #f1f1f5;
+}
+
+select option:checked {
+    background: #8b5cf6;
+    color: #ffffff;
+}
+
+select option:hover {
+    background: #a78bfa;
+    color: #121218;
+}
+
+/* Area di testo */
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* Pulsanti */
+button {
+    padding: 10px 16px;
+    margin-top: 5px;
+    margin-right: 5px;
+    background-color: #8b5cf6;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #7c3aed;
+}
+
+/* Barra di ricerca */
+#search {
+    margin-bottom: 24px;
+}
+
+/* Tabella candidature */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    background-color: #1c1b27;
+    border: 1px solid #343044;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Celle e intestazioni */
+th, td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #343044;
+}
+
+/* Intestazioni della tabella */
+th {
+    background-color: #29243b;
+    color: #c4b5fd;
+    font-weight: 600;
+}
+
+/* Contenuto della tabella */
+td {
+    color: #f1f1f5;
+}
+
+/* Effetto al passaggio del mouse */
+tbody tr:hover {
+    background-color: #252234;
+}
+
+/* Rimuove il bordo dall'ultima riga */
+tbody tr:last-child td {
+    border-bottom: none;
+}
