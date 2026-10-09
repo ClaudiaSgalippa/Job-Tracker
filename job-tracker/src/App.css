@@ -149,3 +149,48 @@ tbody tr:hover {
 tbody tr:last-child td {
     border-bottom: none;
 }
+
+/* Badge degli stati */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Da valutare */
+.status-da-valutare {
+    background-color: #343044;
+    color: #d8d4e8;
+}
+
+/* Candidatura inviata */
+.status-inviata {
+    background-color: #29243b;
+    color: #c4b5fd;
+}
+
+/* Colloquio */
+.status-colloquio {
+    background-color: #3b2d55;
+    color: #d8b4fe;
+}
+
+/* Assunta */
+.status-assunta {
+    background-color: #234536;
+    color: #86efac;
+}
+
+/* Rifiutato */
+.status-rifiutato {
+    background-color: #4a292f;
+    color: #fda4af;
+}
+
+/*Cella Note*/
+td {
+    vertical-align: top;
+}

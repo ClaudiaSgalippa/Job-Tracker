@@ -77,6 +77,14 @@ function ApplicationForm() {
         setEditingNotes('')
     }
 
+    function getStatusClass(status) {
+        if (status === 'Da valutare') return 'status-da-valutare'
+        if (status === 'Candidatura inviata') return 'status-inviata'
+        if (status === 'Colloquio') return 'status-colloquio'
+        if (status === 'Rifiutata') return 'status-rifiutato'
+        if (status === 'Assunta') return 'status-assunta'
+    }
+
     useEffect(() => {
         localStorage.setItem('applications', JSON.stringify(applications))
     }, [applications])
@@ -172,7 +180,9 @@ function ApplicationForm() {
                                         <option value={"Assunta"}>Assunta</option>
                                     </select>
                                 ) : (
-                                    application.status
+                                    <span className={`status-badge ${getStatusClass(application.status)}`}>
+                                        {application.status}
+                                    </span>
                                 )}
                             </td>
                             <td>
