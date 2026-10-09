@@ -1,4 +1,7 @@
-/* Layout principale */
+/* ==============================
+   Layout principale
+============================== */
+
 main {
     max-width: 1100px;
     margin: 0 auto;
@@ -22,7 +25,11 @@ h2 {
     text-align: center;
 }
 
-/* Form */
+
+/* ==============================
+   Form nuova candidatura
+============================== */
+
 form {
     display: flex;
     flex-direction: column;
@@ -48,7 +55,10 @@ label {
 }
 
 /* Campi di inserimento */
-input, select, textarea {
+input,
+select,
+textarea {
+    box-sizing: border-box;
     width: 100%;
     padding: 12px;
     margin-top: 5px;
@@ -81,13 +91,17 @@ select option:hover {
     color: #121218;
 }
 
-/* Area di testo */
+/* Area di testo del form */
 textarea {
-    resize: vertical;
     min-height: 90px;
+    resize: vertical;
 }
 
-/* Pulsanti */
+
+/* ==============================
+   Pulsanti
+============================== */
+
 button {
     padding: 10px 16px;
     margin-top: 5px;
@@ -115,7 +129,11 @@ button.delete-button:hover {
     background-color: #63313a;
 }
 
-/* Riepilogo candidature */
+
+/* ==============================
+   Riepilogo candidature
+============================== */
+
 .application-summary {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -123,6 +141,7 @@ button.delete-button:hover {
     margin-bottom: 24px;
 }
 
+/* Singola scheda */
 .summary-card {
     display: flex;
     flex-direction: column;
@@ -144,19 +163,20 @@ button.delete-button:hover {
     font-size: 28px;
 }
 
-/* Adatta i riquadri agli schermi più piccoli */
-@media (max-width: 700px) {
-    .application-summary {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
-/* Barra di ricerca */
+/* ==============================
+   Barra di ricerca
+============================== */
+
 #search {
     margin-bottom: 24px;
 }
 
-/* Tabella candidature */
+
+/* ==============================
+   Tabella candidature
+============================== */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -168,23 +188,24 @@ table {
 }
 
 /* Celle e intestazioni */
-th, td {
+th,
+td {
     padding: 14px;
     text-align: left;
     border-bottom: 1px solid #343044;
+    vertical-align: top;
 }
 
-/* Intestazioni della tabella */
+/* Intestazioni */
 th {
     background-color: #29243b;
     color: #c4b5fd;
     font-weight: 600;
 }
 
-/* Contenuto della tabella */
+/* Contenuto delle celle */
 td {
     color: #f1f1f5;
-    vertical-align: top;
 }
 
 /* Effetto al passaggio del mouse */
@@ -197,7 +218,11 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Badge degli stati */
+
+/* ==============================
+   Badge degli stati
+============================== */
+
 .status-badge {
     display: inline-block;
     padding: 5px 10px;
@@ -237,9 +262,98 @@ tbody tr:last-child td {
     color: #86efac;
 }
 
-/* Effetto focus per tutti i campi */
-input:focus, select:focus, textarea:focus {
+
+/* ==============================
+   Colonna Note
+============================== */
+
+/* Larghezza della colonna */
+.notes-column {
+    width: 30%;
+    min-width: 280px;
+}
+
+/* Riquadro delle note */
+.note-cell {
+    max-height: 90px;
+    padding: 6px 8px;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    background-color: #121218;
+    border: 1px solid #454057;
+    border-radius: 8px;
+}
+
+/* Riquadro con nota completa */
+.note-cell.expanded {
+    max-height: none;
+}
+
+/* Pulsante Leggi tutto / Mostra meno */
+button.note-toggle {
+    display: block;
+    padding: 4px 0;
+    margin: 6px 0 0;
+    background: transparent;
+    color: #c4b5fd;
+    border: none;
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+button.note-toggle:hover {
+    background: transparent;
+    color: #d8b4fe;
+    text-decoration: underline;
+}
+
+/* Area di modifica delle note */
+.editing-notes {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 150px;
+    padding: 12px;
+    resize: vertical;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #8b5cf6 #1c1b27;
+}
+
+/* Barra di scorrimento su Chrome ed Edge */
+.editing-notes::-webkit-scrollbar {
+    width: 8px;
+}
+
+.editing-notes::-webkit-scrollbar-track {
+    background: #1c1b27;
+}
+
+.editing-notes::-webkit-scrollbar-thumb {
+    background: #8b5cf6;
+    border-radius: 8px;
+}
+
+
+/* ==============================
+   Effetto focus dei campi
+============================== */
+
+input:focus,
+select:focus,
+textarea:focus {
     outline: none !important;
     border-color: #a78bfa !important;
     box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2) !important;
+}
+
+
+/* ==============================
+   Adattamento agli schermi piccoli
+============================== */
+
+@media (max-width: 700px) {
+    .application-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

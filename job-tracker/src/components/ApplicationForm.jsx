@@ -7,6 +7,7 @@ function ApplicationForm() {
     const [search, setSearch] = useState('')
     const [editingId, setEditingId] = useState(null)
     const [editingStatus, setEditingStatus] = useState('')
+    const [expandedNotes, setExpandedNotes] = useState({})
     const [notes, setNotes] = useState('')
     const [editingNotes, setEditingNotes] = useState('')
     const [applications, setApplications] = useState(() => {
@@ -151,17 +152,17 @@ function ApplicationForm() {
                     <span>Totali</span>
                     <strong>{totalApplications}</strong>
                 </div>
-                
+
                 <div className="summary-card">
                     <span>Da valutare</span>
                     <strong>{toEvaluate}</strong>
                 </div>
-                
+
                 <div className="summary-card">
                     <span>Colloqui</span>
                     <strong>{interviews}</strong>
                 </div>
-                
+
                 <div className="summary-card">
                     <span>Assunta</span>
                     <strong>{hired}</strong>
@@ -184,7 +185,7 @@ function ApplicationForm() {
                         <th>Posizione</th>
                         <th>Data</th>
                         <th>Stato candidatura</th>
-                        <th>Note</th>
+                        <th className="notes-column">Note</th>
                         <th>Modifiche</th>
                     </tr>
                 </thead>
@@ -216,16 +217,41 @@ function ApplicationForm() {
                                         {application.status}
                                     </span>
                                 )}
-                            </td>
-                            <td>
+                            </td>    
+                            <td className="notes-column">
                                 {editingId === application.id ? (
                                     <textarea
+                                        className="editing-notes"
                                         value={editingNotes}
                                         onChange={(event) => setEditingNotes(event.target.value)}
                                     />
-                                ) : (
-                                    application.notes
-                                )}
+                                ) : (application.notes || '').trim() !== '' ? (
+                                    <div className={`note-cell ${expandedNotes[application.id] ? 'expanded' : ''}`}>
+                                        <span>
+                                            {(application.notes || '').length > 45 &&
+                                            !expandedNotes[application.id]
+                                                ? `${(application.notes || '').slice(0, 45)}...`
+                                                : application.notes}
+                                        </span>
+                                            
+                                        {(application.notes || '').length > 45 && (
+                                            <button
+                                                type="button"
+                                                className="note-toggle"
+                                                onClick={() =>
+                                                    setExpandedNotes((previous) => ({
+                                                        ...previous,
+                                                        [application.id]: !previous[application.id]
+                                                    }))
+                                                }
+                                            >
+                                                {expandedNotes[application.id]
+                                                    ? 'Mostra meno'
+                                                    : 'Leggi tutto'}
+                                            </button>
+                                        )}
+                                    </div>
+                                ) : null}
                             </td>
                             <td>
                                 <button
