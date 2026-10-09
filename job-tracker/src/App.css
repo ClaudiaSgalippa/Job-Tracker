@@ -105,6 +105,16 @@ button:hover {
     background-color: #7c3aed;
 }
 
+/* Pulsante Elimina */
+button.delete-button {
+    background-color: #4a292f;
+    color: #fda4af;
+}
+
+button.delete-button:hover {
+    background-color: #63313a;
+}
+
 /* Barra di ricerca */
 #search {
     margin-bottom: 24px;

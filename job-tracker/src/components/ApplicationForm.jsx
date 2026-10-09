@@ -209,9 +209,11 @@ function ApplicationForm() {
                                     {editingId === application.id ? 'Conferma' : 'Modifica'}
                                 </button>
                                 <button
-                                    type='button'
-                                    onClick={() => handleDelete(application.id)}>
-                                        Elimina
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(application.id)}
+                                >
+                                    Elimina
                                 </button>
                             </td>
                         </tr>
