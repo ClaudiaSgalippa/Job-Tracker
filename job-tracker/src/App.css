@@ -25,7 +25,6 @@ h2 {
     text-align: center;
 }
 
-
 /* ==============================
    Form nuova candidatura
 ============================== */
@@ -55,9 +54,7 @@ label {
 }
 
 /* Campi di inserimento */
-input,
-select,
-textarea {
+input, select, textarea {
     box-sizing: border-box;
     width: 100%;
     padding: 12px;
@@ -97,7 +94,6 @@ textarea {
     resize: vertical;
 }
 
-
 /* ==============================
    Pulsanti
 ============================== */
@@ -136,7 +132,7 @@ button.delete-button:hover {
 
 .application-summary {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
     margin-bottom: 24px;
 }
@@ -163,7 +159,6 @@ button.delete-button:hover {
     font-size: 28px;
 }
 
-
 /* ==============================
    Barra di ricerca
 ============================== */
@@ -172,15 +167,25 @@ button.delete-button:hover {
     margin-bottom: 24px;
 }
 
-
 /* ==============================
    Tabella candidature
 ============================== */
 
+/* Contenitore della tabella */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+/* Evita spazio doppio sopra la tabella */
+.table-container table {
+    margin-top: 0;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
     background-color: #1c1b27;
     border: 1px solid #343044;
     border-radius: 12px;
@@ -188,8 +193,7 @@ table {
 }
 
 /* Celle e intestazioni */
-th,
-td {
+th, td {
     padding: 14px;
     text-align: left;
     border-bottom: 1px solid #343044;
@@ -217,7 +221,6 @@ tbody tr:hover {
 tbody tr:last-child td {
     border-bottom: none;
 }
-
 
 /* ==============================
    Badge degli stati
@@ -261,7 +264,6 @@ tbody tr:last-child td {
     background-color: #234536;
     color: #86efac;
 }
-
 
 /* ==============================
    Colonna Note
@@ -334,7 +336,6 @@ button.note-toggle:hover {
     border-radius: 8px;
 }
 
-
 /* ==============================
    Effetto focus dei campi
 ============================== */
@@ -347,13 +348,146 @@ textarea:focus {
     box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2) !important;
 }
 
-
 /* ==============================
-   Adattamento agli schermi piccoli
+   Mobile Friendly
 ============================== */
 
 @media (max-width: 700px) {
+
+    /* Layout generale */
+    main {
+        padding: 24px 14px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    /* Form: mantiene i colori originali */
+    form {
+        padding: 18px;
+        background-color: #1c1b27;
+        border: 1px solid #343044;
+        border-radius: 16px;
+    }
+
+    form input, form select, form textarea {
+        background-color: #121218;
+        color: #f1f1f5;
+    }
+
+    /* Riepilogo: due schede per riga */
     .application-summary {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .summary-card {
+        min-width: 0;
+        padding: 14px;
+    }
+
+    .summary-card strong {
+        font-size: 24px;
+    }
+
+    /* Tabella adattata al telefono */
+    .table-container {
+        overflow-x: visible;
+    }
+
+    .table-container table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        table-layout: auto;
+        border: none;
+        border-collapse: separate;
+        background-color: transparent;
+        overflow: visible;
+    }
+
+    .table-container thead {
+        display: none;
+    }
+
+    .table-container tbody {
+        display: block;
+    }
+
+    /* Ogni candidatura diventa una scheda */
+    .table-container tbody tr {
+        display: block;
+        margin-bottom: 16px;
+        background-color: #1c1b27;
+        border: 1px solid #343044;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .table-container tbody tr:hover {
+        background-color: #1c1b27;
+    }
+
+    /* Etichette a sinistra, valori a destra */
+    .table-container tbody td {
+        display: grid;
+        grid-template-columns: 105px minmax(0, 1fr);
+        gap: 10px;
+        min-width: 0;
+        padding: 12px;
+        background-color: transparent;
+        border-bottom: 1px solid #343044;
+        overflow-wrap: anywhere;
+    }
+
+    .table-container tbody td::before {
+        content: attr(data-label);
+        color: #c4b5fd;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Colonna Note */
+    .table-container .notes-column {
+        width: auto;
+        min-width: 0;
+    }
+
+    .table-container .note-cell, .table-container .editing-notes {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Pulsanti sempre contenuti nella scheda */
+    .row-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .row-actions button {
+        margin: 0;
+        padding: 8px 10px;
+    }
+
+    /* Messaggio quando non ci sono candidature */
+    .table-container tbody td[colspan="6"] {
+        display: block;
+        text-align: center;
+    }
+
+    .table-container tbody td[colspan="6"]::before {
+        content: none;
     }
 }

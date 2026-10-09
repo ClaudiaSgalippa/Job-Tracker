@@ -178,107 +178,111 @@ function ApplicationForm() {
                     placeholder='Cerca azienda o posizione'
                 />
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Azienda</th>
-                        <th>Posizione</th>
-                        <th>Data</th>
-                        <th>Stato candidatura</th>
-                        <th className="notes-column">Note</th>
-                        <th>Modifiche</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredApplications.length === 0 ? (
+            <div className="table-container">
+                <table>
+                    <thead>
                         <tr>
-                            <td colSpan='6'>Nessuna candidatura trovata</td>
+                            <th>Azienda</th>
+                            <th>Posizione</th>
+                            <th>Data</th>
+                            <th>Stato candidatura</th>
+                            <th className="notes-column">Note</th>
+                            <th>Modifiche</th>
                         </tr>
-                    ) : (
-                        filteredApplications.map((application) => (
-                            <tr key={application.id}>
-                            <td>{application.company}</td>
-                            <td>{application.position}</td>
-                            <td>{new Date(application.date).toLocaleDateString('it-IT')}</td>
-                            <td>
-                                {editingId === application.id ? (
-                                    <select 
-                                        value={editingStatus} 
-                                        onChange={(event) => setEditingStatus(event.target.value)}
-                                    >
-                                        <option value={"Da valutare"}>Da valutare</option>
-                                        <option value={"Candidatura inviata"}>Candidatura inviata</option>
-                                        <option value={"Colloquio"}>Colloquio</option>
-                                        <option value={"Rifiutata"}>Rifiutata</option>
-                                        <option value={"Assunta"}>Assunta</option>
-                                    </select>
-                                ) : (
-                                    <span className={`status-badge ${getStatusClass(application.status)}`}>
-                                        {application.status}
-                                    </span>
-                                )}
-                            </td>    
-                            <td className="notes-column">
-                                {editingId === application.id ? (
-                                    <textarea
-                                        className="editing-notes"
-                                        value={editingNotes}
-                                        onChange={(event) => setEditingNotes(event.target.value)}
-                                    />
-                                ) : (application.notes || '').trim() !== '' ? (
-                                    <div className={`note-cell ${expandedNotes[application.id] ? 'expanded' : ''}`}>
-                                        <span>
-                                            {(application.notes || '').length > 45 &&
-                                            !expandedNotes[application.id]
-                                                ? `${(application.notes || '').slice(0, 45)}...`
-                                                : application.notes}
+                    </thead>
+                    <tbody>
+                        {filteredApplications.length === 0 ? (
+                            <tr>
+                                <td colSpan='6'>Nessuna candidatura trovata</td>
+                            </tr>
+                        ) : (
+                            filteredApplications.map((application) => (
+                                <tr key={application.id}>
+                                <td data-label="Azienda">{application.company}</td>
+                                <td data-label="Posizione">{application.position}</td>
+                                <td data-label="Data">{new Date(application.date).toLocaleDateString('it-IT')}</td>
+                                <td data-label="Stato candidatura">
+                                    {editingId === application.id ? (
+                                        <select 
+                                            value={editingStatus} 
+                                            onChange={(event) => setEditingStatus(event.target.value)}
+                                        >
+                                            <option value={"Da valutare"}>Da valutare</option>
+                                            <option value={"Candidatura inviata"}>Candidatura inviata</option>
+                                            <option value={"Colloquio"}>Colloquio</option>
+                                            <option value={"Rifiutata"}>Rifiutata</option>
+                                            <option value={"Assunta"}>Assunta</option>
+                                        </select>
+                                    ) : (
+                                        <span className={`status-badge ${getStatusClass(application.status)}`}>
+                                            {application.status}
                                         </span>
-                                            
-                                        {(application.notes || '').length > 45 && (
-                                            <button
-                                                type="button"
-                                                className="note-toggle"
-                                                onClick={() =>
-                                                    setExpandedNotes((previous) => ({
-                                                        ...previous,
-                                                        [application.id]: !previous[application.id]
-                                                    }))
+                                    )}
+                                </td>    
+                                <td className="notes-column" data-label="Note">
+                                    {editingId === application.id ? (
+                                        <textarea
+                                            className="editing-notes"
+                                            value={editingNotes}
+                                            onChange={(event) => setEditingNotes(event.target.value)}
+                                        />
+                                    ) : (application.notes || '').trim() !== '' ? (
+                                        <div className={`note-cell ${expandedNotes[application.id] ? 'expanded' : ''}`}>
+                                            <span>
+                                                {(application.notes || '').length > 45 &&
+                                                !expandedNotes[application.id]
+                                                    ? `${(application.notes || '').slice(0, 45)}...`
+                                                    : application.notes}
+                                            </span>
+                                                
+                                            {(application.notes || '').length > 45 && (
+                                                <button
+                                                    type="button"
+                                                    className="note-toggle"
+                                                    onClick={() =>
+                                                        setExpandedNotes((previous) => ({
+                                                            ...previous,
+                                                            [application.id]: !previous[application.id]
+                                                        }))
+                                                    }
+                                                >
+                                                    {expandedNotes[application.id]
+                                                        ? 'Mostra meno'
+                                                        : 'Leggi tutto'}
+                                                </button>
+                                            )}
+                                        </div>
+                                    ) : null}
+                                </td>
+                                <td data-label="Modifiche">
+                                    <div className="row-actions">
+                                        <button
+                                            type='button'
+                                            onClick={() => {
+                                                if (editingId === application.id) {
+                                                    handleStatusChange(application.id)
+                                                } else {
+                                                    handleEdit(application)
                                                 }
-                                            >
-                                                {expandedNotes[application.id]
-                                                    ? 'Mostra meno'
-                                                    : 'Leggi tutto'}
-                                            </button>
-                                        )}
+                                            }}
+                                        >
+                                            {editingId === application.id ? 'Conferma' : 'Modifica'}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="delete-button"
+                                            onClick={() => handleDelete(application.id)}
+                                        >
+                                            Elimina
+                                        </button>
                                     </div>
-                                ) : null}
-                            </td>
-                            <td>
-                                <button
-                                    type='button'
-                                    onClick={() => {
-                                        if (editingId === application.id) {
-                                            handleStatusChange(application.id)
-                                        } else {
-                                            handleEdit(application)
-                                        }
-                                    }}
-                                >
-                                    {editingId === application.id ? 'Conferma' : 'Modifica'}
-                                </button>
-                                <button
-                                    type="button"
-                                    className="delete-button"
-                                    onClick={() => handleDelete(application.id)}
-                                >
-                                    Elimina
-                                </button>
-                            </td>
-                        </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }
