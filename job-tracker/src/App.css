@@ -468,6 +468,12 @@ textarea:focus {
         min-width: 0;
     }
 
+    /* Note complete e pulsante visibile su mobile */
+    .table-container .note-cell {
+        max-height: none;
+        overflow: visible;
+    }
+
     /* Pulsanti sempre contenuti nella scheda */
     .row-actions {
         display: flex;
@@ -489,5 +495,10 @@ textarea:focus {
 
     .table-container tbody td[colspan="6"]::before {
         content: none;
+    }
+
+        /* Nasconde la cella delle note quando è vuota */
+    .table-container tbody td.empty-notes {
+        display: none;
     }
 }

@@ -56,7 +56,7 @@ function ApplicationForm() {
     function handleEdit(application) {
         setEditingId(application.id)
         setEditingStatus(application.status)
-        setEditingNotes(application.notes)
+        setEditingNotes(application.notes || '')
     }
 
     function handleStatusChange(id) {
@@ -219,7 +219,15 @@ function ApplicationForm() {
                                         </span>
                                     )}
                                 </td>    
-                                <td className="notes-column" data-label="Note">
+                                <td
+                                    className={`notes-column ${
+                                        editingId !== application.id &&
+                                        (application.notes || '').trim() === ''
+                                            ? 'empty-notes'
+                                            : ''
+                                    }`}
+                                    data-label="Note"
+                                >
                                     {editingId === application.id ? (
                                         <textarea
                                             className="editing-notes"
